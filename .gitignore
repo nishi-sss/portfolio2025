@@ -1,0 +1,26 @@
+# venv関連（仮想環境）
+venv/
+.VSCodeCounter/
+python_venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# OS関連（Windows）
+Thumbs.db
+.DS_Store
+*.log
+
+# IDE・エディタ設定
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# GitHub Actionsワークフローキャッシュ（念のため）
+.github/workflows/*.log
+.github/workflows/*.bak
+
