@@ -1,12 +1,12 @@
 /* 全体の設定 */
 body {
     font-family: 'Lora', serif;
-    background-color: #E2E1CB; /* 目に優しい白 */
+    background-color: #E2E1CB;
     color: black;
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* 横スクロール防止 */
 }
-
 /* ナビゲーション */
 nav {
     position: fixed;
@@ -36,7 +36,7 @@ nav ul li a {
 /* Home */
 .hero {
     background: url('images/green.jpg') no-repeat center center / cover;
-    height: 500px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,51 +54,130 @@ nav ul li a {
 
 /* Worksページ */
 .works {
+    position: relative;
     padding: 50px 20px;
+    height: auto;
+}
+.work-left h3 {
+    font-size: 2.5rem; /* 好きなサイズに変更 */
 }
 
-.works-title {
+.work-left p {
+    font-size: 1.0rem;
+}
+
+.work-right h3 {
     font-size: 2rem;
+}
+
+.work-right p {
+    font-size: 1.5rem;
+}
+
+
+/* 左半分に背景画像（ナビバーのはみ出し修正 & 不透明度20%） */
+.works::before {
+    content: ""; /* 擬似要素必須 */
+    position: absolute;
+    top: 0; /* ナビバーにはみ出さないように修正 */
+    left: 0;
+    width: 50%; /* 画面の左半分のみ */
+    height: 100%; /* 画面いっぱい */
+    background: url('images/room.jpg') no-repeat center center / cover;
+    opacity: 0.2; /* 不透明度20% */
+    z-index: -1; /* 背景扱いにする */
+}
+
+/* "Works" のタイトルを固定してズレ防止 */
+.works-title {
+    font-size: 5rem;
     text-align: right;
     margin-right: 50px;
+    position: relative;
+    z-index: 1;
 }
 
+/* 紹介カード */
 .work-card {
     display: flex;
     justify-content: space-between;
+    flex-arap: wrap;
+    gap: 20px
     padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    background-color: rgba(255, 255, 255, 0.9);
+    margin: 80px auto;
+    width: 90%;
+    background-color: transparent; /* 透明にする */
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.work-left, .work-right {
+.work-left,
+.work-right{
     width: 45%;
+    background-color: transparent; /* 白背景（少し透過） */
+    padding: 20px;
+    border-radius: 5px;
+}
+.work-left p {
+    color: #000;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.4); /* 白っぽい影で浮かせる */
 }
 
 /* Aboutページ */
 #about {
     position: relative;
     padding: 50px;
+    height: auto;
+    overflow-x: hidden;
 }
 
 .about-bg {
     position: absolute;
-    top: 10%;
-    left: 10%;
-    font-size: 300px;
+    top: 0;
+    left: 0;
+    font-size: 25vw; /* 画面に応じて自動縮小 */
     color: rgba(0, 0, 0, 0.1);
     transform: rotate(-10deg);
+    white-space: nowrap; /*折り返さずに１行 */
 }
 
 .about-content {
     position: relative;
     z-index: 10;
+    max-width: 90%;
+    margin: auto;
 }
 
 .about-content h2 {
     color: #065D29;
 }
 
+/* === メディアクエリ（スマホ対応）=== */
+@media screen and (max-width: 768px) {
+    .hero {
+        font-size: 35px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .work-card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .work-left,
+    .work-right {
+        width: 90%;
+    }
+
+    .works-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin: 0 auto 30px;
+    }
+
+    .about-bg {
+        font-size: 40vw; /* スマホではもっと小さく */
+        left: 5%;
+    }
+}
